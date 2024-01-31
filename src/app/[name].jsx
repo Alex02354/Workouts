@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         textTransform: 'capitalize',
       },
     instructions: {
-        fontiSize: 16,
+        fontSize: 16,
         lineHeight: 22,
     },
     seeMore: {
