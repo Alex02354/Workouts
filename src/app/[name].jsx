@@ -63,7 +63,7 @@ export default function ExerciseDetailsScreen() {
                 {isInstructionExpanded ? 'See less' : 'See more'}
             </Text>
             </View>
-            <NewSetInput/>
+            <NewSetInput exerciseName={exercise.name}/>
             <SetsList/>
         </ScrollView>
     )

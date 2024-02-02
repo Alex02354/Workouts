@@ -2,15 +2,19 @@ type InsertSetResponse {
   insertedId: String
 }
 
-scalar Inputdocument
+input NewSet {
+  exercise: String!
+  reps: Int!
+  weight: Float
+}
 
 type Mutation {
-  myQuery(
-    collection: String
-    dataSource: String
-    database: String
-    document: Inputdocument
-  ): InsertSetResponse
+  insertSet(
+    document: NewSet!
+    collection: String!
+    dataSource: String!
+    database: String!
+    ): InsertSetResponse
     @rest(
       method: POST
       endpoint: "https://eu-central-1.aws.data.mongodb-api.com/app/data-piisb/endpoint/data/v1/action/insertOne"
@@ -21,5 +25,6 @@ type Mutation {
           value: "8tVdUmNmXAzqdVe3jHXOAHPysR0u37kgHeW1MUQaN3sPro0UKzi0p6vrQThtA0P0"
         }
       ]
+      
     )
 }
