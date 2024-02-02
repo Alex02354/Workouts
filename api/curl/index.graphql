@@ -1,0 +1,32 @@
+type DocumentsEntry {
+  _id: String
+  exercise: String
+  reps: Int
+  weight: Float
+}
+
+type Root {
+  documents: [DocumentsEntry]
+}
+
+type Query {
+  sets: Root
+    @rest(
+      method: POST
+      endpoint: "https://eu-central-1.aws.data.mongodb-api.com/app/data-piisb/endpoint/data/v1/action/find"
+      headers: [
+        { name: "access-control-request-headers", value: "*" }
+        {
+          name: "api-key"
+          value: "8tVdUmNmXAzqdVe3jHXOAHPysR0u37kgHeW1MUQaN3sPro0UKzi0p6vrQThtA0P0"
+        }
+      ],
+      postbody: """
+        {
+          "collection": "sets",
+          "dataSource": "Cluster0",
+          "database": "workouts"
+        }
+      """
+    )
+}

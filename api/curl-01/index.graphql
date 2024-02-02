@@ -1,0 +1,25 @@
+type InsertSetResponse {
+  insertedId: String
+}
+
+scalar Inputdocument
+
+type Mutation {
+  myQuery(
+    collection: String
+    dataSource: String
+    database: String
+    document: Inputdocument
+  ): InsertSetResponse
+    @rest(
+      method: POST
+      endpoint: "https://eu-central-1.aws.data.mongodb-api.com/app/data-piisb/endpoint/data/v1/action/insertOne"
+      headers: [
+        { name: "accept", value: "application/json" }
+        {
+          name: "apikey"
+          value: "8tVdUmNmXAzqdVe3jHXOAHPysR0u37kgHeW1MUQaN3sPro0UKzi0p6vrQThtA0P0"
+        }
+      ]
+    )
+}
