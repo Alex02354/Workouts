@@ -16,7 +16,7 @@ const setsQuery = gql`
     }
 `; 
 
-const SetsList = () => {
+const SetsList = ({ListHeaderComponent}) => {
   const {data, isLoading} = useQuery ({
     queryKey: ['sets'],
     queryFn: () => client.request(setsQuery),
@@ -29,6 +29,12 @@ const SetsList = () => {
   return (
     <FlatList
      data={data.sets.documents}
+     ListHeaderComponent={() => (
+        <>
+          <ListHeaderComponent />
+        </>
+         )}
+         showsVerticalScrollIndicator={false}
      renderItem={({item}) => (
         <Text style={{backgroundColor: 'white', marginVertical: 5, padding: 10, borderRadius: 5, overflow: 'hidden',}}>
             {item.reps} x {item.weight}{' '}

@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import exercises from '../../assets/data/exercises.json';
 import {Stack} from 'expo-router';
 import {useState} from 'react';
 import {gql} from 'graphql-request';
@@ -45,9 +44,13 @@ export default function ExerciseDetailsScreen() {
     }
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <View contentContainerStyle={styles.container}>
             <Stack.Screen options={{title:exercise.name}}/>
-            <View style={styles.panel}>
+            
+            <SetsList
+              ListHeaderComponent={() => (
+                <View style={{gap:5}}>
+                <View style={styles.panel}>
             <Text style={styles.exerciseName}>{exercise.name}</Text>
                 <Text style={styles.exerciseSubtitle}>
                 <Text style={styles.subValue}>{exercise.muscle}</Text> | 
@@ -64,15 +67,16 @@ export default function ExerciseDetailsScreen() {
             </Text>
             </View>
             <NewSetInput exerciseName={exercise.name}/>
-            <SetsList/>
-        </ScrollView>
+            </View>
+              )}
+            />
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         padding: 10,
-        gap: 10,
     },
     panel: {
         backgroundColor: 'white',
