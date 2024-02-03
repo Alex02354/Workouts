@@ -22,7 +22,7 @@ const exerciseQuery = gql`
 
 export default function ExerciseDetailsScreen() {
     const { name } = useLocalSearchParams();
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, error } = useQuery({
       queryKey: ['exercises', name],
       queryFn: () => client.request(exerciseQuery, { name }),
     });
@@ -32,6 +32,10 @@ export default function ExerciseDetailsScreen() {
     if (isLoading) {
         return <ActivityIndicator />;
     }
+
+    if (error) {
+        return <Text>Failed to fetch data</Text>;
+      }
 
     /* if (error) {
         return <Text>Failed to fetch data</Text>;
@@ -44,10 +48,11 @@ export default function ExerciseDetailsScreen() {
     }
 
     return (
-        <View contentContainerStyle={styles.container}>
+        <View style={styles.container}>
             <Stack.Screen options={{title:exercise.name}}/>
             
             <SetsList
+                exerciseName={exercise.name}
               ListHeaderComponent={() => (
                 <View style={{gap:5}}>
                 <View style={styles.panel}>
