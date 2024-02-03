@@ -7,6 +7,7 @@ import {useQuery} from '@tanstack/react-query';
 import client from '../graphqlClient';
 import NewSetInput from "../components/NewSetInput";
 import SetsList from "../components/SetsList";
+import {useAuth} from '../providers/AuthContext';
 
 const exerciseQuery = gql`
   query exercises($name: String) {
@@ -29,6 +30,8 @@ export default function ExerciseDetailsScreen() {
 
     const [isInstructionExpanded, setIsInstructionExpanded] = useState(false);
 
+    const {username} = useAuth();
+
     if (isLoading) {
         return <ActivityIndicator />;
     }
@@ -46,7 +49,9 @@ export default function ExerciseDetailsScreen() {
     if (!exercise) {
         return <Text>Exercise not found</Text>;
     }
-
+    if (!username) {
+      return <Redirect href={'/auth'}/>;
+    }
     return (
         <View style={styles.container}>
             <Stack.Screen options={{title:exercise.name}}/>
