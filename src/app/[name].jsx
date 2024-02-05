@@ -8,6 +8,7 @@ import client from '../graphqlClient';
 import NewSetInput from "../components/NewSetInput";
 import SetsList from "../components/SetsList";
 import {useAuth} from '../providers/AuthContext';
+import ProgressGraph from "../components/ProgressGraph";
 
 const exerciseQuery = gql`
   query exercises($name: String) {
@@ -76,6 +77,7 @@ export default function ExerciseDetailsScreen() {
                 {isInstructionExpanded ? 'See less' : 'See more'}
             </Text>
             </View>
+            <ProgressGraph/>
             <NewSetInput exerciseName={exercise.name}/>
             </View>
               )}
