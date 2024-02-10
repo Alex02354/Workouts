@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.alex02354.Workouts"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -30,6 +31,20 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "7644c751-4ba4-4590-94cc-7b56053b739b"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/7644c751-4ba4-4590-94cc-7b56053b739b"
+    }
   }
 }
