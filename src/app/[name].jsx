@@ -4,25 +4,28 @@ import {
   StyleSheet,
   ScrollView,
   ActivityIndicator,
-} from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-import exercises from '../../assets/data/exercises.json';
-import { Stack } from 'expo-router';
-import { useState } from 'react';
-import { gql } from 'graphql-request';
-import { useQuery } from '@tanstack/react-query';
-import client from '../graphqlClient';
-import NewSetInput from '../components/NewSetInput';
-import SetsList from '../components/SetsList';
-import ProgressGraph from '../components/ProgressGraph';
+} from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import exercises from "../../assets/data/exercises.json";
+import { Stack } from "expo-router";
+import { useState } from "react";
+import { gql } from "graphql-request";
+import { useQuery } from "@tanstack/react-query";
+import client from "../graphqlClient";
+import NewSetInput from "../components/NewSetInput";
+import SetsList from "../components/SetsList";
+import ProgressGraph from "../components/ProgressGraph";
 
 const exerciseQuery = gql`
   query exercises($name: String) {
     exercises(name: $name) {
-      name
-      muscle
-      instructions
-      equipment
+      documents {
+        _id
+        name
+        muscle
+        instructions
+        equipment
+      }
     }
   }
 `;
@@ -30,7 +33,7 @@ const exerciseQuery = gql`
 export default function ExerciseDetailsScreen() {
   const { name } = useLocalSearchParams();
   const { data, isLoading, error } = useQuery({
-    queryKey: ['exercises', name],
+    queryKey: ["exercises", name],
     queryFn: () => client.request(exerciseQuery, { name }),
   });
 
@@ -44,7 +47,11 @@ export default function ExerciseDetailsScreen() {
     return <Text>Failed to fetch data</Text>;
   }
 
-  const exercise = data.exercises[0];
+  let exercise = null;
+
+  if (data && data.exercises && data.exercises.documents) {
+    exercise = data.exercises.documents.find((ex) => ex.name === name);
+  }
 
   if (!exercise) {
     return <Text>Exercise not found</Text>;
@@ -62,7 +69,7 @@ export default function ExerciseDetailsScreen() {
               <Text style={styles.exerciseName}>{exercise.name}</Text>
 
               <Text style={styles.exerciseSubtitle}>
-                <Text style={styles.subValue}>{exercise.muscle}</Text> |{' '}
+                <Text style={styles.subValue}>{exercise.muscle}</Text> |{" "}
                 <Text style={styles.subValue}>{exercise.equipment}</Text>
               </Text>
             </View>
@@ -78,7 +85,7 @@ export default function ExerciseDetailsScreen() {
                 onPress={() => setIsInstructionExpanded(!isInstructionExpanded)}
                 style={styles.seeMore}
               >
-                {isInstructionExpanded ? 'See less' : 'See more'}
+                {isInstructionExpanded ? "See less" : "See more"}
               </Text>
             </View>
 
@@ -95,28 +102,28 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   panel: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 10,
     borderRadius: 5,
   },
   exerciseName: {
     fontSize: 20,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   exerciseSubtitle: {
-    color: 'dimgray',
+    color: "dimgray",
   },
   subValue: {
-    textTransform: 'capitalize',
+    textTransform: "capitalize",
   },
   instructions: {
     fontSize: 16,
     lineHeight: 22,
   },
   seeMore: {
-    alignSelf: 'center',
+    alignSelf: "center",
     padding: 5,
-    fontWeight: '600',
-    color: 'gray',
+    fontWeight: "600",
+    color: "gray",
   },
 });

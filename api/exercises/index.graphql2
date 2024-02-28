@@ -1,4 +1,4 @@
-type Exercise {
+""" type Exercise {
   difficulty: String
   equipment: String
   instructions: String
@@ -15,4 +15,4 @@ type Query {
         { name: "x-api-key", value: "xTQFOOAQW9j5mvEprnlme9QkW0LQWmonKft3flgY" }
       ]
     )
-}
+} """

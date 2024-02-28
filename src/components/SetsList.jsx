@@ -1,10 +1,10 @@
-import { View, Text, ActivityIndicator, FlatList } from 'react-native';
-import { gql } from 'graphql-request';
-import { useQuery } from '@tanstack/react-query';
-import client from '../graphqlClient';
-import { useAuth } from '../providers/AuthContext';
-import SetListItem from './SetListItem';
-import ProgressGraph from './ProgressGraph';
+import { View, Text, ActivityIndicator, FlatList } from "react-native";
+import { gql } from "graphql-request";
+import { useQuery } from "@tanstack/react-query";
+import client from "../graphqlClient";
+import { useAuth } from "../providers/AuthContext";
+import SetListItem from "./SetListItem";
+import ProgressGraph from "./ProgressGraph";
 
 const setsQuery = gql`
   query sets($exercise: String!, $username: String!) {
@@ -23,7 +23,7 @@ const SetsList = ({ ListHeaderComponent, exerciseName }) => {
   const { username } = useAuth();
 
   const { data, isLoading } = useQuery({
-    queryKey: ['sets', exerciseName],
+    queryKey: ["sets", exerciseName],
     queryFn: () =>
       client.request(setsQuery, { exercise: exerciseName, username }),
   });
