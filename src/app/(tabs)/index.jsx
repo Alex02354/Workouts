@@ -7,12 +7,12 @@ import {
   ActivityIndicator,
   Button,
 } from "react-native";
-import ExerciseListItem from "../components/ExerciseListItem";
+import ExerciseListItem from "../../components/ExerciseListItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { gql } from "graphql-request";
-import client from "../graphqlClient";
+import client from "../../graphqlClient";
 import { Redirect, Stack } from "expo-router";
-import { useAuth } from "../providers/AuthContext";
+import { useAuth } from "../../providers/AuthContext";
 import { useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 
