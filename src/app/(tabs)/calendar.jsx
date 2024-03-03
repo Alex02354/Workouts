@@ -1,22 +1,76 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ActivityIndicator, Alert } from "react-native";
 import { Agenda } from "react-native-calendars";
+import { gql } from "graphql-request";
+import { useQuery } from "@tanstack/react-query";
+import client from "../../graphqlClient";
+import { useLocalSearchParams } from "expo-router";
+import { useAuth } from "../../providers/AuthContext";
 
-const calendar = () => {
-  const items = {
-    "2024-03-01": [{ name: "Rickshaw Carry" }],
-    "2024-03-02": [{ name: "Rip Curl" }],
-    "2024-03-03": [{ name: "Benchpress" }]
-  };
+const GetEvents = gql`
+  query Event($exercise: String) {
+    Event(exercise: $exercise) {
+      documents {
+        _id
+        exercise
+        reps
+        username
+        weight
+      }
+    }
+  }
+`;
+
+const getEventsSchedule = (events) => {
+  const items = {};
+
+  events.forEach((event) => {
+    const date = new Date(parseInt(event._id.substring(0, 8), 16) * 1000);
+    const day = date.toISOString().slice(0, 10); // Format date to YYYY-MM-DD
+    if (!items[day]) {
+      items[day] = [];
+    }
+    items[day].push({ ...event, day, height: 50 });
+  });
+
+  return items;
+};
+
+const Calendar = () => {
+  const { exercise } = useLocalSearchParams();
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["Event", exercise],
+    queryFn: () => client.request(GetEvents, { exercise }),
+  });
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+
+  if (error) {
+    Alert.alert("Error fetching events", error.message);
+    return null;
+  }
+
+  const events = getEventsSchedule(data?.Event.documents || []);
 
   return (
     <View style={styles.container}>
       <Agenda
-        items={items}
+        items={events}
         showOnlySelectedDayItems
         renderItem={(item) => (
           <View style={styles.item}>
-            <Text>{item.name}</Text>
+            <Text>{item.exercise}</Text>
+            <Text>
+              <Text>Reps: {item.reps}</Text> |{" "}
+              <Text>Weight: {item.weight}</Text>{" "}
+            </Text>
+          </View>
+        )}
+        renderEmptyDate={() => (
+          <View style={styles.emptyDate}>
+            <Text>This is empty date!</Text>
           </View>
         )}
       />
@@ -35,6 +89,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 17,
   },
+  emptyDate: {
+    height: 15,
+    flex: 1,
+    paddingTop: 30,
+  },
 });
 
-export default calendar;
+export default Calendar;
