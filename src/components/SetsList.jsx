@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import client from "../graphqlClient";
 import { useAuth } from "../providers/AuthContext";
 import SetListItem from "./SetListItem";
-import ProgressGraph from "./ProgressGraph";
 
 const setsQuery = gql`
   query sets($exercise: String!, $username: String!) {
@@ -38,7 +37,6 @@ const SetsList = ({ ListHeaderComponent, exerciseName }) => {
       ListHeaderComponent={() => (
         <>
           <ListHeaderComponent />
-          <ProgressGraph sets={data.sets.documents} />
         </>
       )}
       showsVerticalScrollIndicator={false}
