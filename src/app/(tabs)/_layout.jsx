@@ -7,8 +7,9 @@ export default () => {
       <Tabs.Screen
         name="(home)"
         options={{
-          title: "exercises",
+          title: "Exercises",
           tabBarLabel: "Exercises",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="list" color={color} size={size} />
           ),
@@ -17,6 +18,7 @@ export default () => {
       <Tabs.Screen
         name="calendar"
         options={{
+          title: "Summary",
           tabBarLabel: "Summary",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar" color={color} size={size} />

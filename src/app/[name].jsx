@@ -4,6 +4,7 @@ import {
   StyleSheet,
   ScrollView,
   ActivityIndicator,
+  useWindowDimensions,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import exercises from "../../assets/data/exercises.json";
@@ -14,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import client from "../graphqlClient";
 import NewSetInput from "../components/NewSetInput";
 import SetsList from "../components/SetsList";
+import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 
 const exerciseQuery = gql`
   query exercises($name: String) {
@@ -31,6 +33,7 @@ const exerciseQuery = gql`
 
 export default function ExerciseDetailsScreen() {
   const { name } = useLocalSearchParams();
+  const { width } = useWindowDimensions();
   const { data, isLoading, error } = useQuery({
     queryKey: ["exercises", name],
     queryFn: () => client.request(exerciseQuery, { name }),
@@ -56,6 +59,22 @@ export default function ExerciseDetailsScreen() {
     return <Text>Exercise not found</Text>;
   }
 
+  const getImageSource = (imageName) => {
+    switch (imageName) {
+      case "EZ-bar spider curl":
+        return require("../../assets/EZ-bar spider curl.jpg");
+      case "Hammer Curls":
+        return require("../../assets/Hammer Curls.jpg");
+      case "Incline Hammer Curls":
+        return require("../../assets/Incline Hammer Curls.jpg");
+      case "Wide-grip barbell curl":
+        return require("../../assets/Wide-grip barbell curl.jpg");
+      // Add more cases for other image names as needed
+      default:
+        return null;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: exercise.name }} />
@@ -64,6 +83,11 @@ export default function ExerciseDetailsScreen() {
         exerciseName={exercise.name}
         ListHeaderComponent={() => (
           <View style={{ gap: 5 }}>
+            <Animated.Image
+              sharedTransitionTag={exercise.name}
+              source={getImageSource(exercise.name)}
+              style={{ width: width, height: width }}
+            />
             <View style={styles.panel}>
               <Text style={styles.exerciseName}>{exercise.name}</Text>
 

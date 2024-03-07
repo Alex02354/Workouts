@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Button,
+  Pressable,
+} from "react-native";
 import { useState } from "react";
 import { gql } from "graphql-request";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -62,7 +69,12 @@ const NewSetInput = ({ exerciseName }) => {
           style={styles.input}
           keyboardType="numeric"
         />
-        <Button title={isPending ? "Adding..." : "Add"} onPress={addSet} />
+
+        <Pressable style={styles.button} onPress={addSet}>
+          <Text style={{ color: "white" }}>
+            {isPending ? "Adding..." : "Add"}
+          </Text>
+        </Pressable>
       </View>
       {isError && <Text style={{ color: "red" }}>Failed to add the set</Text>}
     </View>
@@ -73,7 +85,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 8,
     // flexDirection: 'row',
     gap: 5,
   },
@@ -86,7 +98,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: "gainsboro",
     flex: 1,
-    borderRadius: 5,
+    borderRadius: 8,
+  },
+  button: {
+    backgroundColor: "purple",
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
   },
 });
 
