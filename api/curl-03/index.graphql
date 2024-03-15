@@ -1,21 +1,21 @@
-type InsertSetResponse {
+type InsertPlans {
   insertedId: String
 }
 
-input NewSet {
-  username: String!
+input NewPlan {
   exercise: String!
+  username: String!
   reps: Int!
   weight: Float
 }
 
 type Mutation {
-  insertSet(
-    document: NewSet!
+  insertPlan(
     collection: String!
     dataSource: String!
     database: String!
-  ): InsertSetResponse
+    document: NewPlan!
+  ): InsertPlans
     @rest(
       method: POST
       endpoint: "https://eu-central-1.aws.data.mongodb-api.com/app/data-piisb/endpoint/data/v1/action/insertOne"

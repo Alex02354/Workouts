@@ -3,6 +3,8 @@ schema
     files: [
       "mongodb/index.graphql"
       "curl-01/index.graphql"
+      "curl-02/index.graphql"
+      "curl-03/index.graphql"
       "curl/index.graphql"
     ]
   ) {

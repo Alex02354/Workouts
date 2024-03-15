@@ -1,17 +1,19 @@
-type PlansList {
+type Exercise {
   _id: String
-  exercise: String
-  reps: Int
-  username: String
-  weight: Int
+  difficulty: String
+  equipment: String
+  instructions: String
+  muscle: String
+  name: String
+  type: String
 }
 
-type Root4 {
-  documents: [PlansList]
+type Root2 {
+  documents: [Exercise]
 }
 
 type Query {
-  plans(username: String!): Root4
+  exercises(muscle: String, name: String, offset: Int): Root2
     @rest(
       method: POST
       endpoint: "https://eu-central-1.aws.data.mongodb-api.com/app/data-piisb/endpoint/data/v1/action/find"
@@ -24,12 +26,10 @@ type Query {
       ]
       postbody: """
       {
-        "collection": "plans",
+        "collection": "exercises",
         "dataSource": "Cluster0",
-        "database": "workouts",
-        "filter": {
-            "username": "{{ .Get "username" }}"
-          }
+        "database": "workouts"
+
       }
       """
     )
