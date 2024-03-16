@@ -53,7 +53,7 @@ const Calendar = () => {
   }
 
   const events = getEventsSchedule(data?.Event.documents || []);
-
+  
   return (
     <View style={styles.container}>
       <Agenda
@@ -61,18 +61,28 @@ const Calendar = () => {
         showOnlySelectedDayItems
         renderItem={(item) => (
           <View style={styles.item}>
-            <Text>{item.exercise}</Text>
+            <Text style={{ fontWeight: "bold" }}>{item.exercise}</Text>
             <Text>
               <Text>Reps: {item.reps}</Text> |{" "}
               <Text>Weight: {item.weight}</Text>{" "}
             </Text>
           </View>
         )}
-        renderEmptyDate={() => (
-          <View style={styles.emptyDate}>
-            <Text>This is empty date!</Text>
-          </View>
-        )}
+        renderEmptyData={() => {
+          return (
+            <View>
+              <Text>rest day</Text>
+            </View>
+          );
+        }}
+        theme={{
+          agendaDayTextColor: "purple",
+          agendaDayNumColor: "purple",
+          agendaTodayColor: "purple",
+          agendaKnobColor: "purple",
+          selectedDayBackgroundColor: "purple",
+          dotColor: "purple",
+        }}
       />
     </View>
   );

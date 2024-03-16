@@ -34,3 +34,35 @@ type Query {
       """
     )
 }
+
+type Dropdown {
+  _id: String
+  name: String
+}
+
+type Root5 {
+  documents: [Dropdown]
+}
+
+type Query {
+  dropdowns: Root5
+    @rest(
+      method: POST
+      endpoint: "https://eu-central-1.aws.data.mongodb-api.com/app/data-piisb/endpoint/data/v1/action/find"
+      headers: [
+        { name: "access-control-request-headers", value: "*" }
+        {
+          name: "api-key"
+          value: "8tVdUmNmXAzqdVe3jHXOAHPysR0u37kgHeW1MUQaN3sPro0UKzi0p6vrQThtA0P0"
+        }
+      ]
+      postbody: """
+      {
+        "collection": "exercises",
+        "dataSource": "Cluster0",
+        "database": "workouts"
+
+      }
+      """
+    )
+}

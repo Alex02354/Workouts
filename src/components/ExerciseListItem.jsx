@@ -13,6 +13,10 @@ export default function ExerciseListItem({ item }) {
         return require("../../assets/Incline Hammer Curls.jpg");
       case "Wide-grip barbell curl":
         return require("../../assets/Wide-grip barbell curl.jpg");
+        case "Horeprdec":
+        return require("../../assets/Wide-grip barbell curl.jpg");
+        case "Lunges":
+        return require("../../assets/Wide-grip barbell curl.jpg");
       // Add more cases for other image names as needed
       default:
         return null;
