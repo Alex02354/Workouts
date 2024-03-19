@@ -7,11 +7,11 @@ input InputFilter {
 }
 
 type Mutation {
-  myQuery(
-    collection: String
-    dataSource: String
-    database: String
-    filter: InputFilter
+  deletePlan(
+    collection: String!
+    dataSource: String!
+    database: String!
+    filter: InputFilter!
   ): DeletePlan
     @rest(
       method: POST
