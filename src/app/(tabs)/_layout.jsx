@@ -29,7 +29,6 @@ export default () => {
       <Tabs.Screen
         name="planner"
         options={{
-          unmountOnBlur: true,
           title: "Planner",
           tabBarLabel: "Planner",
           tabBarIcon: ({ color, size }) => (

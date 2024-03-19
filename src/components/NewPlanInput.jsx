@@ -19,7 +19,7 @@ const mutationDocument2 = gql`
   }
 `;
 
-const GetDropdowns = gql`
+ const GetDropdowns = gql`
   query dropdowns {
     dropdowns {
       documents {
@@ -28,7 +28,7 @@ const GetDropdowns = gql`
       }
     }
   }
-`;
+`; 
 
 const NewPlanInput = () => {
   //exerciseName will not be passed from the planner page screen.
@@ -71,13 +71,15 @@ const NewPlanInput = () => {
     { label: "Traveling", value: "traveling" },
   ];
 
-  const { data, isLoading, error } = useQuery({
+     const { data, isLoading, error } = useQuery({
     queryKey: ["dropdowns"],
     queryFn: () => client.request(GetDropdowns),
   });
 
-  const drops = data?.dropdowns.documents;
+  const drops = data?.dropdowns?.documents || []; 
 
+/*   console.log(drops); */
+  
   return (
     <View style={styles.container}>
       <DropDownPicker
