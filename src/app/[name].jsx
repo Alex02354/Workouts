@@ -5,17 +5,17 @@ import {
   ScrollView,
   ActivityIndicator,
   useWindowDimensions,
-} from "react-native";
-import { useLocalSearchParams } from "expo-router";
-import exercises from "../../assets/data/exercises.json";
-import { Stack } from "expo-router";
-import { useState } from "react";
-import { gql } from "graphql-request";
-import { useQuery } from "@tanstack/react-query";
-import client from "../graphqlClient";
-import NewSetInput from "../components/NewSetInput";
-import SetsList from "../components/SetsList";
-import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
+} from "react-native"
+import { useLocalSearchParams } from "expo-router"
+import exercises from "../../assets/data/exercises.json"
+import { Stack } from "expo-router"
+import { useState } from "react"
+import { gql } from "graphql-request"
+import { useQuery } from "@tanstack/react-query"
+import client from "../graphqlClient"
+import NewSetInput from "../components/NewSetInput"
+import SetsList from "../components/SetsList"
+import Animated, { FadeIn, FadeInDown } from "react-native-reanimated"
 
 const exerciseQuery = gql`
   query exercises($name: String) {
@@ -29,51 +29,51 @@ const exerciseQuery = gql`
       }
     }
   }
-`;
+`
 
 export default function ExerciseDetailsScreen() {
-  const { name } = useLocalSearchParams();
-  const { width } = useWindowDimensions();
+  const { name } = useLocalSearchParams()
+  const { width } = useWindowDimensions()
   const { data, isLoading, error } = useQuery({
     queryKey: ["exercises", name],
     queryFn: () => client.request(exerciseQuery, { name }),
-  });
+  })
 
-  const [isInstructionExpanded, setIsInstructionExpanded] = useState(false);
+  const [isInstructionExpanded, setIsInstructionExpanded] = useState(false)
 
   if (isLoading) {
-    return <ActivityIndicator />;
+    return <ActivityIndicator />
   }
 
   if (error) {
-    return <Text>Failed to fetch data</Text>;
+    return <Text>Failed to fetch data</Text>
   }
 
-  let exercise = null;
+  let exercise = null
 
   if (data && data.exercises && data.exercises.documents) {
-    exercise = data.exercises.documents.find((ex) => ex.name === name);
+    exercise = data.exercises.documents.find((ex) => ex.name === name)
   }
 
   if (!exercise) {
-    return <Text>Exercise not found</Text>;
+    return <Text>Exercise not found</Text>
   }
 
   const getImageSource = (imageName) => {
     switch (imageName) {
       case "EZ-bar spider curl":
-        return require("../../assets/EZ-bar spider curl.jpg");
+        return require("../../assets/EZ-bar spider curl.jpg")
       case "Hammer Curls":
-        return require("../../assets/Hammer Curls.jpg");
+        return require("../../assets/Hammer Curls.jpg")
       case "Incline Hammer Curls":
-        return require("../../assets/Incline Hammer Curls.jpg");
+        return require("../../assets/Incline Hammer Curls.jpg")
       case "Wide-grip barbell curl":
-        return require("../../assets/Wide-grip barbell curl.jpg");
+        return require("../../assets/Wide-grip barbell curl.jpg")
       // Add more cases for other image names as needed
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   return (
     <View style={styles.container}>
@@ -117,7 +117,7 @@ export default function ExerciseDetailsScreen() {
         )}
       />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -149,4 +149,4 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "gray",
   },
-});
+})

@@ -6,21 +6,21 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-} from "react-native";
-import { Redirect, Stack } from "expo-router";
-import { useState } from "react";
-import { useAuth } from "../providers/AuthContext";
+} from "react-native"
+import { Redirect, Stack } from "expo-router"
+import { useState } from "react"
+import { useAuth } from "../providers/AuthContext"
 
 const AuthScreen = () => {
-  const [localUsername, setLocalUsername] = useState("");
-  const { setUsername, username } = useAuth();
+  const [localUsername, setLocalUsername] = useState("")
+  const { setUsername, username } = useAuth()
 
   const onSignIn = () => {
-    setUsername(localUsername);
-  };
+    setUsername(localUsername)
+  }
 
   if (username) {
-    return <Redirect href={"(tabs)"} />;
+    return <Redirect href={"(tabs)"} />
   }
 
   return (
@@ -41,8 +41,8 @@ const AuthScreen = () => {
         <Text style={styles.buttonTitle}>Sign in</Text>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   page: {
@@ -93,6 +93,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
   },
-});
+})
 
-export default AuthScreen;
+export default AuthScreen

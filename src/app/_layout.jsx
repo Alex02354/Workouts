@@ -1,10 +1,10 @@
-import { Stack } from "expo-router";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Stack } from "expo-router"
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
+import { GestureHandlerRootView } from "react-native-gesture-handler"
 
-import AuthContextProvider from "../providers/AuthContext";
+import AuthContextProvider from "../providers/AuthContext"
 
-const client = new QueryClient();
+const client = new QueryClient()
 
 export default function RootLayout() {
   return (
@@ -17,5 +17,5 @@ export default function RootLayout() {
         </QueryClientProvider>
       </AuthContextProvider>
     </GestureHandlerRootView>
-  );
+  )
 }

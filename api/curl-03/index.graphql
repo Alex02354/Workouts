@@ -7,7 +7,6 @@ input NewPlan {
   username: String!
   reps: Int!
   weight: Float
-  completed: Boolean = false # Default value for the completed field
 }
 
 type Mutation {

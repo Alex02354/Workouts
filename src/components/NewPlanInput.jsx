@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
-import { useState } from "react";
-import { gql } from "graphql-request";
-import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
-import client from "../graphqlClient";
-import { useAuth } from "../providers/AuthContext";
-import DropDownPicker from "react-native-dropdown-picker";
+import { View, Text, StyleSheet, TextInput, Pressable } from "react-native"
+import { useState } from "react"
+import { gql } from "graphql-request"
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query"
+import client from "../graphqlClient"
+import { useAuth } from "../providers/AuthContext"
+import DropDownPicker from "react-native-dropdown-picker"
 
 const mutationDocument2 = gql`
   mutation myMutation($newPlan: NewPlan!) {
@@ -17,9 +17,9 @@ const mutationDocument2 = gql`
       insertedId
     }
   }
-`;
+`
 
- const GetDropdowns = gql`
+const GetDropdowns = gql`
   query dropdowns {
     dropdowns {
       documents {
@@ -28,40 +28,40 @@ const mutationDocument2 = gql`
       }
     }
   }
-`; 
+`
 
 const NewPlanInput = () => {
   //exerciseName will not be passed from the planner page screen.
-  const [reps, setReps] = useState("");
-  const [weight, setWeight] = useState("");
-  const [exercise, setExercise] = useState(); //exercise will be selected from the dropdown menu
-  const { username } = useAuth();
-  const queryClient = useQueryClient();
+  const [reps, setReps] = useState("")
+  const [weight, setWeight] = useState("")
+  const [exercise, setExercise] = useState() //exercise will be selected from the dropdown menu
+  const { username } = useAuth()
+  const queryClient = useQueryClient()
 
   const { mutate, isError, isPending } = useMutation({
     mutationFn: (newPlan) => client.request(mutationDocument2, { newPlan }),
     onSuccess: () => {
-      setReps("");
-      setWeight("");
-      setExercise("");
-      queryClient.invalidateQueries({ queryKey: ["plans", username] });
+      setReps("")
+      setWeight("")
+      setExercise("")
+      queryClient.invalidateQueries({ queryKey: ["plans", username] })
     },
-  });
+  })
 
   const addPlan = () => {
     const newPlan = {
       username: username,
       exercise: exercise,
       reps: Number.parseInt(reps),
-    };
+    }
     if (Number.parseFloat(weight)) {
-      newPlan.weight = Number.parseFloat(weight);
+      newPlan.weight = Number.parseFloat(weight)
     }
 
-    mutate(newPlan);
-  };
+    mutate(newPlan)
+  }
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   const items = [
     { label: "Dancing", value: "dancing" },
@@ -69,17 +69,17 @@ const NewPlanInput = () => {
     { label: "Coding", value: "coding" },
     { label: "Swimming", value: "swimming" },
     { label: "Traveling", value: "traveling" },
-  ];
+  ]
 
-     const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["dropdowns"],
     queryFn: () => client.request(GetDropdowns),
-  });
+  })
 
-  const drops = data?.dropdowns?.documents || []; 
+  const drops = data?.dropdowns?.documents || []
 
-/*   console.log(drops); */
-  
+  /*   console.log(drops); */
+
   return (
     <View style={styles.container}>
       <DropDownPicker
@@ -123,8 +123,8 @@ const NewPlanInput = () => {
         <Text style={{ color: "red" }}>Choose exercise and set the reps!</Text>
       )}
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -152,6 +152,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 24,
   },
-});
+})
 
-export default NewPlanInput;
+export default NewPlanInput
