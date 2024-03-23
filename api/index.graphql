@@ -7,6 +7,7 @@ schema
       "curl-03/index.graphql"
       "curl/index.graphql"
       "curl-04/index.graphql"
+      "curl-05/index.graphql"
     ]
   ) {
   query: Query

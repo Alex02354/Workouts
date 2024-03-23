@@ -1,25 +1,31 @@
-type InsertPlans {
-  insertedId: String
+type UpdatePlan {
+  matchedCount: Int
+  modifiedCount: Int
 }
 
-input NewPlan {
+input InputFilter2 {
   exercise: String!
-  username: String!
-  reps: Int!
+}
+
+input InputUpdate {
+  exercise: String
+  completed: Boolean
+  reps: Int
+  username: String
   weight: Float
-  completed: Boolean = false # Default value for the completed field
 }
 
 type Mutation {
-  insertPlan(
+  updatePlan(
     collection: String!
     dataSource: String!
     database: String!
-    document: NewPlan!
-  ): InsertPlans
+    filter: InputFilter2!
+    update: InputUpdate!
+  ): UpdatePlan
     @rest(
       method: POST
-      endpoint: "https://eu-central-1.aws.data.mongodb-api.com/app/data-piisb/endpoint/data/v1/action/insertOne"
+      endpoint: "https://eu-central-1.aws.data.mongodb-api.com/app/data-piisb/endpoint/data/v1/action/updateOne"
       headers: [
         { name: "accept", value: "application/json" }
         {

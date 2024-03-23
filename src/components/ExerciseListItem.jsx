@@ -13,9 +13,9 @@ export default function ExerciseListItem({ item }) {
         return require("../../assets/Incline Hammer Curls.jpg");
       case "Wide-grip barbell curl":
         return require("../../assets/Wide-grip barbell curl.jpg");
-        case "Horeprdec":
+      case "Horeprdec":
         return require("../../assets/Wide-grip barbell curl.jpg");
-        case "Lunges":
+      case "Lunges":
         return require("../../assets/Wide-grip barbell curl.jpg");
       // Add more cases for other image names as needed
       default:
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 10,
     borderRadius: 20,
+    elevation: 4,
   },
   image: {
     width: 120,

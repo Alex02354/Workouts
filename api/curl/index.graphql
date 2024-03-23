@@ -4,6 +4,7 @@ type PlansList {
   reps: Int
   username: String
   weight: Int
+  completed: Boolean
 }
 
 type Root4 {

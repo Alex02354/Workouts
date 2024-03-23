@@ -1,29 +1,29 @@
-import { View, Text, Pressable } from "react-native";
-import { formatDistanceToNow } from "date-fns";
-import { Ionicons } from "@expo/vector-icons";
+import React from "react"
+import { View, Text, Pressable, TouchableOpacity } from "react-native"
+import { formatDistanceToNow } from "date-fns"
+import { Ionicons } from "@expo/vector-icons"
 
-// Parse creation date from _id field
-const PlanListItem = ({ plan, onDelete }) => {
-  const timestamp = parseInt(plan._id.substr(0, 8), 16) * 1000;
-  const createdAt = new Date(timestamp);
-
-  // Format date in days, month, year format
+const PlanListItem = ({ plan, onDelete, onUpdate }) => {
+  const timestamp = parseInt(plan._id.substr(0, 8), 16) * 1000
+  const createdAt = new Date(timestamp)
   const formattedDate = createdAt.toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
     year: "numeric",
-  });
+  })
 
   return (
     <View
       style={{
-        backgroundColor: "white",
+        backgroundColor: plan.completed ? "#90EE90" : "white", // Conditionally change background color
         marginVertical: 5,
         padding: 10,
         borderRadius: 5,
         flexDirection: "row",
         alignItems: "stretch",
         justifyContent: "space-between",
+        marginHorizontal: 10,
+        elevation: 3,
       }}
     >
       <View>
@@ -32,16 +32,43 @@ const PlanListItem = ({ plan, onDelete }) => {
           {plan.reps} x {plan.weight}
         </Text>
       </View>
-      {/* <Text style={{ color: "gray" }}>
-        {formatDistanceToNow(createdAt)} ago
-      </Text> */}
-      <Text style={{ color: "gray" }}>{formattedDate}</Text>
 
-      <Pressable onPress={() => onDelete(plan.exercise)}>
-        <Ionicons name="trash-outline" size={24} color="red" />
-      </Pressable>
+      <View
+        style={{
+          gap: 10,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {/*         <Text style={{ color: "gray" }}>{formattedDate}</Text> */}
+        <TouchableOpacity
+          onPress={() => {
+            console.log("Updating plan2:", {
+              exercise: plan.exercise,
+              completed: !plan.completed,
+              reps: plan.reps,
+              weight: plan.weight,
+              username: plan.username,
+            })
+            onUpdate(
+              plan.exercise,
+              !plan.completed,
+              plan.reps,
+              plan.weight,
+              plan.username
+            )
+          }}
+        >
+          <Ionicons name="checkmark" size={24} color="green" />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => onDelete(plan.exercise)}>
+          <Ionicons name="trash-outline" size={24} color="red" />
+        </TouchableOpacity>
+      </View>
     </View>
-  );
-};
+  )
+}
 
-export default PlanListItem;
+export default PlanListItem

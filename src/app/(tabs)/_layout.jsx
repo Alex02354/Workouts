@@ -36,6 +36,16 @@ export default () => {
           ),
         }}
       />
+      <Tabs.Screen
+        name="progress"
+        options={{
+          title: "Progress",
+          tabBarLabel: "Progress",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="checkmark-done-circle-outline" color={color} size={size} />
+          ),
+        }}
+      />
     </Tabs>
   );
 };
