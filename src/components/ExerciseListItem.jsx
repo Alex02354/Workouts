@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable } from "react-native"
+import { StyleSheet, Text, View, Pressable, Image } from "react-native"
 import { Link } from "expo-router"
 import Animated, { FadeInDown } from "react-native-reanimated"
 
@@ -26,11 +26,7 @@ export default function ExerciseListItem({ item }) {
     <Animated.View entering={FadeInDown.delay(300 * item)}>
       <Link href={`/${item.name}`} asChild>
         <Pressable style={styles.container}>
-          <Animated.Image
-            source={getImageSource(item.name)}
-            style={styles.image}
-            sharedTransitionTag={item.name}
-          />
+          <Image source={getImageSource(item.name)} style={styles.image} />
           <View style={styles.textContainer}>
             <Text style={styles.textName}>{item.name}</Text>
             <Text style={styles.textLocation}>

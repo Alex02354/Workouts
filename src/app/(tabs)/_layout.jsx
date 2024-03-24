@@ -1,5 +1,5 @@
-import { Tabs } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router"
+import { Ionicons } from "@expo/vector-icons"
 
 export default () => {
   return (
@@ -11,7 +11,7 @@ export default () => {
           tabBarLabel: "Exercises",
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="list" color={color} size={size} />
+            <Ionicons name="search" color={color} size={size} />
           ),
         }}
       />
@@ -36,16 +36,6 @@ export default () => {
           ),
         }}
       />
-      <Tabs.Screen
-        name="progress"
-        options={{
-          title: "Progress",
-          tabBarLabel: "Progress",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="checkmark-done-circle-outline" color={color} size={size} />
-          ),
-        }}
-      />
     </Tabs>
-  );
-};
+  )
+}

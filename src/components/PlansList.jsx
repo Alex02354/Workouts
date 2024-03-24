@@ -1,10 +1,11 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { View, Text, ActivityIndicator, FlatList } from "react-native"
 import { gql } from "graphql-request"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import client from "../graphqlClient"
 import { useAuth } from "../providers/AuthContext"
 import PlanListItem from "./PlanListItem"
+import ProgressBar from "./ProgressBar"
 
 const plansQuery = gql`
   query plans($username: String!) {
@@ -96,13 +97,6 @@ const PlansList = () => {
   })
 
   const handleUpdate = (exercise, completed, reps, weight, username) => {
-    console.log("Updating plan:", {
-      exercise,
-      completed,
-      reps,
-      weight,
-      username,
-    }) // Log the variables being passed
     updatePlan({ exercise, completed, reps, username, weight, username })
   }
 
@@ -114,20 +108,38 @@ const PlansList = () => {
     return <ActivityIndicator />
   }
 
+  const completedCount = data.plans.documents.reduce((count, plan) => {
+    if (plan.completed) {
+      return count + 1
+    } else {
+      return count
+    }
+  }, 0)
+
+  const calculatePercCompleted = () => {
+    //(totalChapterCompleted/CompletedChapter)*100
+    const perc = completedCount / data?.plans?.documents?.length
+
+    return perc.toFixed(2)
+  }
+
   return (
-    <FlatList
-      data={data.plans.documents}
-      showsVerticalScrollIndicator={false}
-      style={{ zIndex: 100 }}
-      renderItem={({ item }) => (
-        <PlanListItem
-          plan={item}
-          onDelete={handleDelete}
-          onUpdate={handleUpdate}
-        />
-      )}
-      keyExtractor={(item) => item.exercise} // Use exercise as the unique key
-    />
+    <View>
+      <FlatList
+        data={data.plans.documents}
+        showsVerticalScrollIndicator={false}
+        style={{ zIndex: 100 }}
+        renderItem={({ item }) => (
+          <PlanListItem
+            plan={item}
+            onDelete={handleDelete}
+            onUpdate={handleUpdate}
+          />
+        )}
+        keyExtractor={(item) => item.exercise} // Use exercise as the unique key
+      />
+      <ProgressBar perc={calculatePercCompleted()} />
+    </View>
   )
 }
 

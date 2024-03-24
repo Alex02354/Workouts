@@ -2,9 +2,9 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   ActivityIndicator,
   useWindowDimensions,
+  Image,
 } from "react-native"
 import { useLocalSearchParams } from "expo-router"
 import exercises from "../../assets/data/exercises.json"
@@ -15,7 +15,6 @@ import { useQuery } from "@tanstack/react-query"
 import client from "../graphqlClient"
 import NewSetInput from "../components/NewSetInput"
 import SetsList from "../components/SetsList"
-import Animated, { FadeIn, FadeInDown } from "react-native-reanimated"
 
 const exerciseQuery = gql`
   query exercises($name: String) {
@@ -83,8 +82,7 @@ export default function ExerciseDetailsScreen() {
         exerciseName={exercise.name}
         ListHeaderComponent={() => (
           <View style={{ gap: 5 }}>
-            <Animated.Image
-              sharedTransitionTag={exercise.name}
+            <Image
               source={getImageSource(exercise.name)}
               style={{ width: width, height: width }}
             />
