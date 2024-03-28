@@ -36,6 +36,20 @@ export default () => {
           ),
         }}
       />
+      <Tabs.Screen
+        name="lottie"
+        options={{
+          title: "Lottie",
+          tabBarLabel: "Lottie",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons
+              name="arrow-forward-circle-outline"
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
     </Tabs>
   )
 }

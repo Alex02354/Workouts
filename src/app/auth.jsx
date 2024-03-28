@@ -25,7 +25,7 @@ const AuthScreen = () => {
 
   return (
     <View style={styles.page}>
-      <Stack.Screen options={{ title: "Training app" }} />
+      <Stack.Screen options={{ title: "Training app", headerShown: false }} />
       <View style={styles.imageContainer}>
         <Image source={require("../../assets/icon.png")} style={styles.logo} />
       </View>
@@ -47,7 +47,7 @@ const AuthScreen = () => {
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    justifyContent: "top",
+    justifyContent: "center",
     padding: 10,
     gap: 10,
     backgroundColor: "white",
@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   logo: {
-    width: 250, // Set the desired width
-    height: 250, // Set the desired height
+    width: 290, // Set the desired width
+    height: 300, // Set the desired height
     //resizeMode: 'contain', // Adjust the image content mode (cover, contain, etc.)
     // Other styles for your logo
     flex: 0.686,

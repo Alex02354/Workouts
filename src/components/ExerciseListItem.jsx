@@ -7,15 +7,17 @@ export default function ExerciseListItem({ item }) {
     switch (imageName) {
       case "EZ-bar spider curl":
         return require("../../assets/EZ-bar spider curl.jpg")
-      case "Hammer Curls":
-        return require("../../assets/Hammer Curls.jpg")
       case "Incline Hammer Curls":
         return require("../../assets/Incline Hammer Curls.jpg")
-      case "Wide-grip barbell curl":
+      case "Hammer Curls":
+        return require("../../assets/Hammer Curls.jpg")
+      case "Biceps curl to shoulder press":
         return require("../../assets/Wide-grip barbell curl.jpg")
-      case "Horeprdec":
+      case "Concentration curl":
         return require("../../assets/Wide-grip barbell curl.jpg")
-      case "Lunges":
+      case "Flexor Incline Dumbbell Curls":
+        return require("../../assets/Wide-grip barbell curl.jpg")
+      case "Barbell Curl":
         return require("../../assets/Wide-grip barbell curl.jpg")
       // Add more cases for other image names as needed
       default:

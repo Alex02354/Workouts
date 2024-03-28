@@ -91,6 +91,7 @@ const NewPlanInput = () => {
         setValue={(val) => setExercise(val)}
         showTickIcon={false}
         placeholder="Select your exercise"
+        maxHeight={500}
         containerStyle={{
           zIndex: isOpen ? 1000 : 0,
         }}

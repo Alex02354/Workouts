@@ -64,7 +64,7 @@ export default function ExercisesScreen() {
   }
 
   if (!username) {
-    return <Redirect href={"/auth"} />;
+    return <Redirect href={"/login"} />;
   }
 
   const exercises = data?.pages.flatMap((page) =>
